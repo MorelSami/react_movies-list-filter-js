@@ -5,12 +5,11 @@ import moviesFromServer from './api/movies.json';
 
 export const App = () => {
   const [query, setQuery] = useState('');
-  const regex = new RegExp(query.trim(), 'i');
 
   const visibleMovies = moviesFromServer.filter(
     movie =>
-      movie.description.search(regex) !== -1 ||
-      movie.title.search(regex) !== -1,
+      movie.description.search(new RegExp(query.trim(), 'i')) !== -1 ||
+      movie.title.search(new RegExp(query.trim(), 'i')) !== -1,
   );
 
   return (
@@ -29,7 +28,7 @@ export const App = () => {
                 id="search-query"
                 className="input"
                 placeholder="Type search word"
-                onChange={event => setQuery(event.target.value)}
+                onChange={changeEvent => setQuery(changeEvent.target.value)}
               />
             </div>
           </div>
